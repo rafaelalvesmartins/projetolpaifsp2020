@@ -1,0 +1,6 @@
+echo "# projetolpaifsp2020" >> README.md
+git init
+git add .
+git commit -m "Meu primeiro commit"
+git remote add origin https://github.com/rafaelalvesmartins/projetolpaifsp2020.git
+git push -u origin master
