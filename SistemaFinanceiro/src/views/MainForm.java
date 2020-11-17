@@ -23,7 +23,7 @@ public class MainForm extends JFrame implements ActionListener  { // Herda todos
 	MainForm(){ // Método construtor
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Define o que acontece quando clica no botão fechar
 		setTitle("Sistema Financeiro"); // Define o título da janela
-		setBounds(200, 100, 900, 700); // Dimensões da janela x, y, largura e altura
+		setBounds(300, 80, 900, 700); // Dimensões da janela x, y, largura e altura
 		
 		panel = new JPanel(); // Panel para adicionar os elementos na janela
 		setContentPane(panel); // Setando o panel na janela
@@ -73,7 +73,8 @@ public class MainForm extends JFrame implements ActionListener  { // Herda todos
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == itemCarteiras) { // Cateiras
-			System.out.println("Carteiras");
+			CarteiraForm cf = new CarteiraForm();
+			cf.setVisible(true);
 		} else if (e.getSource() == itemInvestimentos) { // Investimentos
 			System.out.println("Investimentos");
 		} else if (e.getSource() == itemRelatorios) { // Relatórios
