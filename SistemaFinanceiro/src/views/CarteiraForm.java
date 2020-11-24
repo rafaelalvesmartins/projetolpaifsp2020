@@ -23,8 +23,8 @@ public class CarteiraForm extends JDialog implements ActionListener{
 	private JScrollPane scroll;
 	private DefaultTableModel tableModel;
 	private JButton jbAdd, jbDel, jbCancelar, jbSalvar;
-	
-	
+
+
 	CarteiraForm(){
 		// Definições da Janela
 		setTitle("Cadastro de Carteira");
@@ -32,33 +32,34 @@ public class CarteiraForm extends JDialog implements ActionListener{
 		panel = new JPanel();
 		setContentPane(panel);
 		setLayout(null);
-					
+
 		// Criando o label
 		lbCabecalho = new JLabel("ID \s\s\s\s\s\s\s  Nome	\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s\s	Perfil de Investimento	\s\s\s\s\s\s\sLucro Esp.	\s\s\s\s\s\s\s	Prejuízo Máximo");
 		lbCabecalho.setBounds(10,10,580,20);
 		panel.add(lbCabecalho);
-		
+
 		// Criando TextField
 		tfId = new JTextField();
+		tfId.setEnabled(false);
 		tfId.setBounds(10,30,40,25);
 		panel.add(tfId);
-		
+
 		tfNome = new JTextField();
 		tfNome.setBounds(50,30,150,25);
 		panel.add(tfNome);
-		
+
 		tfPerfilInvestimento = new JTextField();
 		tfPerfilInvestimento.setBounds(200,30,150,25);
 		panel.add(tfPerfilInvestimento);
-		
+
 		tfLucroEsperado = new JTextField();
 		tfLucroEsperado.setBounds(350,30,80,25);
 		panel.add(tfLucroEsperado);
-		
+
 		tfPrejuizoMaximo = new JTextField();
 		tfPrejuizoMaximo.setBounds(430,30,70,25);
 		panel.add(tfPrejuizoMaximo);
-		
+
 		// Criando Tabela
 		tableModel = new DefaultTableModel();
 		tableModel.addColumn("Id");
@@ -66,34 +67,34 @@ public class CarteiraForm extends JDialog implements ActionListener{
 		tableModel.addColumn("Perfil de Investimento");
 		tableModel.addColumn("Lucro Esperado");
 		tableModel.addColumn("Prejuízo Máximo");
-		
+
 		table = new JTable(tableModel);
 		scroll = new JScrollPane(table);
 		scroll.setBounds(10,55,559,275);
 		panel.add(scroll);
-		
+
 		// Criar os botões
 		jbAdd = new JButton("Add");
 		jbAdd.setBounds(500,30,68,25);
 		jbAdd.addActionListener(this);
 		panel.add(jbAdd);
-		
-		
+
+
 		jbDel = new JButton("Del");
 		jbDel.setBounds(278,330,59,30);
 		jbDel.addActionListener(this);
 		panel.add(jbDel);
-		
+
 		jbCancelar = new JButton("Cancelar");
 		jbCancelar.setBounds(328,330,120,30);
 		jbCancelar.addActionListener(this);
 		panel.add(jbCancelar);
-		
+
 		jbSalvar = new JButton("Salvar");
 		jbSalvar.setBounds(448,330,120,30);
 		jbSalvar.addActionListener(this);
 		panel.add(jbSalvar);
-		
+
 	}
 
 	@Override

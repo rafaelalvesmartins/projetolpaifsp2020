@@ -23,7 +23,7 @@ public class MainForm extends JFrame implements ActionListener  { // Herda todos
 	MainForm(){ // Método construtor
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Define o que acontece quando clica no botão fechar
 		setTitle("Sistema Financeiro"); // Define o título da janela
-		setBounds(300, 80, 900, 700); // Dimensões da janela x, y, largura e altura
+		setBounds(300, 80, 900, 700);  // Dimensões da janela x, y, largura e altura
 		
 		panel = new JPanel(); // Panel para adicionar os elementos na janela
 		setContentPane(panel); // Setando o panel na janela
@@ -76,9 +76,11 @@ public class MainForm extends JFrame implements ActionListener  { // Herda todos
 			CarteiraForm cf = new CarteiraForm();
 			cf.setVisible(true);
 		} else if (e.getSource() == itemInvestimentos) { // Investimentos
-			System.out.println("Investimentos");
+			InvestimentoForm invf = new InvestimentoForm();
+			invf.setVisible(true);
 		} else if (e.getSource() == itemRelatorios) { // Relatórios
-			System.out.println("Relatórios");			
+			RelatorioForm rf = new RelatorioForm();
+			rf.setVisible(true);
 		} else if (e.getSource() == itemSair) { // Sair
 			dispose();		
 		}
