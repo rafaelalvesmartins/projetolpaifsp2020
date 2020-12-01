@@ -108,7 +108,7 @@ public class Investimento {
 
 	public String toCSV() {
 		return id + ";" + quantidade + ";" + acao
-				+ "; " + dataCompra + ";" + dataVenda  + ";" + carteira.getId() + ";" + compradoPor + ";"+ valorAtual + ";" + vendidoPor ;
+				+ ";" + dataCompra + ";" + dataVenda  + ";" + carteira.getId() + ";" + compradoPor + ";"+ valorAtual + ";" + vendidoPor +"\n" ;
 	}
 	
 	
