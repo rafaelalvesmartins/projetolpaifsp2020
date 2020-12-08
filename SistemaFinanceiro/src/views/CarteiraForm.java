@@ -3,15 +3,20 @@ package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import controllers.ProcessaCarteira;
+import models.Carteira;
 
 public class CarteiraForm extends JDialog implements ActionListener{
 
@@ -23,9 +28,14 @@ public class CarteiraForm extends JDialog implements ActionListener{
 	private JScrollPane scroll;
 	private DefaultTableModel tableModel;
 	private JButton jbAdd, jbDel, jbCancelar, jbSalvar;
+	private Carteira carteira;
+	private int id;
 
 
 	CarteiraForm(){
+		// Adicionar novo ID no textfield
+		id = ProcessaCarteira.getAutoId();
+		
 		// Definições da Janela
 		setTitle("Cadastro de Carteira");
 		setBounds(250,160,597,410);
@@ -42,6 +52,7 @@ public class CarteiraForm extends JDialog implements ActionListener{
 		tfId = new JTextField();
 		tfId.setEnabled(false);
 		tfId.setBounds(10,30,40,25);
+		tfId.setText(String.format("%d", id));
 		panel.add(tfId);
 
 		tfNome = new JTextField();
@@ -94,19 +105,76 @@ public class CarteiraForm extends JDialog implements ActionListener{
 		jbSalvar.setBounds(448,330,120,30);
 		jbSalvar.addActionListener(this);
 		panel.add(jbSalvar);
+		
+		
+		
+		// Adicionar as informações do BD na view do usuário
+		if(!ProcessaCarteira.getArray().isEmpty()) {// Verifica se o BD não está vazio
+			for(Carteira c : ProcessaCarteira.getArray() ) {
+				tableModel.addRow(c.toVetor());
+			}
+		}
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == jbAdd) {
-			System.out.println("Add");
-		} else if (e.getSource() == jbDel) {
-			System.out.println("Del");
-		} else if (e.getSource() == jbCancelar) {
-			System.out.println("Cancelar");
-		} else if (e.getSource() == jbSalvar) {
-			System.out.println("Salvar");
+		if(e.getSource() == jbAdd) { // Adicionar informações na tabela
+			if(!tfNome.getText().isEmpty() 
+					&& !tfPerfilInvestimento.getText().isEmpty() 
+					&& !tfLucroEsperado.getText().isEmpty() 
+					&& !tfPrejuizoMaximo.getText().isEmpty()) {// Avaliar se todos os campos foram inseridos
+					
+				// Utiliza a Classe Carteira DAO para inserir os dados na tabela
+				carteira = new Carteira();
+				carteira.setId(id);
+				carteira.setNome(tfNome.getText());
+				carteira.setPerfilDeInvestimento(tfPerfilInvestimento.getText());
+				carteira.setLucroEsperado(Double.parseDouble(tfLucroEsperado.getText()));
+				carteira.setPrejuizoMaximo(Double.parseDouble(tfPrejuizoMaximo.getText()));
+				tableModel.addRow(carteira.toVetor());
+				
+				//Limpar os campos text field
+				id++;
+				tfId.setText(String.format("%d", id));
+				tfNome.setText("");
+				tfPerfilInvestimento.setText("");
+				tfLucroEsperado.setText("");
+				tfPrejuizoMaximo.setText("");
+			}
+			
+			
+		} else if (e.getSource() == jbDel) { // Ao clicar no botão deletar
+			if(table.getSelectedRow()>=0) {
+				tableModel.removeRow(table.getSelectedRow());
+			}else {
+				JOptionPane.showInternalMessageDialog(null, "Selecione uma linha para remover.");
+			}
+						
+		} else if (e.getSource() == jbCancelar) { // Ao clicar no botão Cancelar
+			dispose();			
+		} else if (e.getSource() == jbSalvar) { // Ao clicar no botão salvar
+			ArrayList<Carteira> carteiras = new ArrayList<>();
+			
+			
+			for (int i=0;i<tableModel.getRowCount();i++) {
+				carteira = new Carteira();
+				carteira.setId(Integer.parseInt((String)tableModel.getValueAt(i,0)));
+				carteira.setNome((String)tableModel.getValueAt(i, 1));
+				carteira.setPerfilDeInvestimento((String)tableModel.getValueAt(i, 2));
+				carteira.setLucroEsperado(Double.parseDouble((String)tableModel.getValueAt(i, 3)));
+				carteira.setPrejuizoMaximo(Double.parseDouble((String)tableModel.getValueAt(i, 4)));
+				carteiras.add(carteira);
+				
+			}
+			
+			
+			ProcessaCarteira.setArray(carteiras);
+			JOptionPane.showMessageDialog(null,"Carteiras salvo com sucesso!");
+			dispose();
+			
+			
+			
 		}
 	}
 

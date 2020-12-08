@@ -113,7 +113,7 @@ public class Investimento {
 	
 	
 	public String[] toVetor() {
-		String [] vetorString = new String[5];
+		String [] vetorString = new String[11];
 		vetorString[0] = Integer.toString(id);
 		vetorString[1] = Integer.toString(quantidade);
 		vetorString[2] = acao;
@@ -123,8 +123,12 @@ public class Investimento {
 		vetorString[6] = Double.toString(compradoPor);
 		vetorString[7] = Double.toString(valorAtual);
 		vetorString[8] = Double.toString(vendidoPor);
+		vetorString[9] = Double.toString(getTotalInvestido());
+		vetorString[10] = Double.toString(getTotalVendido());
 		return vetorString;
 	}
+	
+	
 	
 	
 	public String toHTML() {
@@ -134,30 +138,30 @@ public class Investimento {
 	}
 	
 	
-	double getVenderPrejuizo() {
+	public double getVenderPrejuizo() {
 		return compradoPor-compradoPor*carteira.getPrejuizoMaximo();
 	}
 	
-	double getVenderLucro() {
+	public double getVenderLucro() {
 		return compradoPor+compradoPor*carteira.getLucroEsperado();
 	}
 	
-	double getTotalInvestido() {
+	public double getTotalInvestido() {
 		return quantidade*compradoPor;
 	}
 	
-	double getTotalVendido() {
+	public double getTotalVendido() {
 		return quantidade*vendidoPor;
 	}
 	
-	double getTotalAtual() {
+	public double getTotalAtual() {
 		if(getTotalVendido()>0)
 			return getTotalVendido();
 		else
 			return quantidade*valorAtual;
 	}
 	
-	String getResultado() {
+	public String getResultado() {
 		if(getTotalVendido()>0) { // Já vendeu o ativo
 			if(getTotalVendido()>getTotalInvestido())
 				return "Lucro";

@@ -44,7 +44,7 @@ public class Carteira {
 	
 	public String toCSV() {
 		return id + ";" + nome + ";" + perfilDeInvestimento
-				+ "; " + lucroEsperado + ";" + prejuizoMaximo ;
+				+ "; " + lucroEsperado + ";" + prejuizoMaximo +"\n";
 	}
 	
 	public String[] toVetor() {
